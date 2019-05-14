@@ -1,0 +1,8 @@
+{
+  "domain": "nibeuplink",
+  "name": "NIBE Uplink API",
+  "documentation": "https://github.com/W00D00/home-assistant-nibeuplink",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@W00D00"]
+}

@@ -2,7 +2,7 @@
 layout: page
 title: "NIBEUplink"
 description: "Instructions on how to integrate NIBE systems into Home Assistant."
-date: 2019-04-07 10:00
+date: 2019-05-14 10:00
 sidebar: true
 comments: false
 sharing: true
@@ -11,7 +11,7 @@ logo: nibe.png
 ha_category:
   - Sensor
 ha_iot_class: Cloud Polling
-ha_release: 0.91.1
+ha_release: 0.92.2
 redirect_from:
   - /components/sensor.nibeuplink/
 ---
@@ -32,13 +32,18 @@ nibeuplink:
   client_id: NIBEUPLINK_CLIENT_ID
   client_secret: NIBEUPLINK_CLIENT_SECRET
   redirect_url: NIBEUPLINK_REDIRECT_URL
-  api_base_url: NIBEUPLINK_API_BASE_URL
-  token_url: NIBEUPLINK_TOKEN_URL
-  systems:
-    - system_name: SYSTEM_NAME_1
-      system_id: SYSTEM_ID_1
-    - system_name: SYSTEM_NAME_2
-      system_id: SYSTEM_ID_2
+  scope: NIBEUPLINK_SCOPE
+  api_auth_url: NIBEUPLINK_API_AUTH_URL
+  api_functions_url: NIBEUPLINK_API_FUNCTIONS_URL
+
+sensor:
+    - platform: nibeuplink
+      sensors:
+          sukorooutdoortempbt1:
+              name: YOURSENSORNAME
+              system_name: YOURSYSTEMNAME
+              system_id: SYSTMEID
+              system_parameter: PARAMATERID
 ```
 
 {% configuration %}
@@ -51,22 +56,31 @@ client_secret:
   required: true
   type: string
 redirect_url:
-    description: NIBE Uplink API redirect url.
-    required: true
-    type: string
-api_base_url:
+  description: NIBE Uplink API redirect url.
+  required: true
+  type: string
+scope:
+  description: NIBE Uplink client access type.
+  required: false
+  type: string
+api_auth_url:
   description: NIBE Uplink API base url.
   required: false
   type: string
-token_url:
+api_functions_url:
   description: NIBE Uplink token url.
   required: false
   type: string
-systems:
-  description: List of systems.
+
+sensors:
+  description: List of sensors.
   required:  true
   type: map
   keys:
+    name:
+      description: Name. The name of the given sensor.
+      required: true
+      type: string    
     system_name:
       description: System Name. The name of the system. Found in the My Systems settings page.
       required: true
@@ -75,6 +89,11 @@ systems:
       description: Device ID. Found in the given system path.
       required: true
       type: string
+    system_parameter:
+      description: Parameter number.
+      required: true
+      type: string
+
 {% endconfiguration %}
 
 ## {% linkable_title Sensor %}
