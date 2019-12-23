@@ -113,4 +113,5 @@ class NIBESensor(Entity):
             self._system_id, self._system_parameter)
         self.state_attr = data[0]
 
-        self._state = self.state_attr['displayValue']
+        # self._state = self.state_attr['displayValue']
+        self._state = self.state_attr['rawValue'] * 0.1
