@@ -4,6 +4,9 @@ Provides functionality to interact with NIBE systems.
 For more details about this platform, please refer to the documentation at
 https://home-assistant.io/components/nibeuplink/
 """
+
+__version__ = '1.2'
+
 import asyncio
 import json
 import logging
@@ -159,6 +162,8 @@ class NIBEUplinkAPI():
             headers=DEFAULT_SESSION_HEADERS,
             auth=aiohttp.BasicAuth(self.client_id, self.client_secret)
         )
+
+        _LOGGER.info("Nibe Uplink lib version: {}".format(__version__))
 
     def __load_auth_data_from_file(self):
         """Loading the authorization data from file."""

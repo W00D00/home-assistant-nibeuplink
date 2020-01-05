@@ -4,6 +4,9 @@ Support for Nibe components.
 For more details about this component, please refer to the documentation
 https://home-assistant.io/components/sensor.nibe/
 """
+
+__version__ = '1.2'
+
 import logging
 
 import homeassistant.helpers.config_validation as cv
@@ -65,6 +68,7 @@ class NIBESensor(Entity):
         self._system_parameter = system_parameter
         self._state = None
         self._device_class = None
+        self._unit = None
         self.state_attr = None
 
     @property
@@ -95,7 +99,7 @@ class NIBESensor(Entity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-        return self.state_attr['unit']
+        return self._unit
 
     @property
     def device_state_attributes(self):
@@ -115,3 +119,4 @@ class NIBESensor(Entity):
 
         # self._state = self.state_attr['displayValue']
         self._state = self.state_attr['rawValue'] * 0.1
+        self._unit = self.state_attr['unit']
